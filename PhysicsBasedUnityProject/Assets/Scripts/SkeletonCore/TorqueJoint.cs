@@ -26,9 +26,23 @@ public class TorqueJoint : MonoBehaviour
     [SerializeField] private bool m_UseAddTorque;
 
     [SerializeField] private bool m_Normal;
+
+    [SerializeField] private float m_NormalValue;
     
     private Vector3 m_TorqueRotation;
-    
+
+    public float TorqueJointValue
+    {
+        get => m_TorqueJoint;
+        set => m_TorqueJoint = value;
+    }
+
+    public Rigidbody RigidBodyValue
+    {
+        get => m_RigidBody;
+        set => m_RigidBody = value;
+    }
+
     private void Update()
     {
         float tHorizontal = Input.GetAxis("Horizontal");
@@ -55,7 +69,7 @@ public class TorqueJoint : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Mouse0))    
             m_RigidBody.AddForce(new Vector3(tHorizontal, 1, tVertical) * Mathf.Abs(m_DownForce));
         if(m_Normal)
-            m_RigidBody.AddForce(Vector3.down * 9.81f);
+            m_RigidBody.AddForce(Vector3.down * m_NormalValue);
 
     }
 
