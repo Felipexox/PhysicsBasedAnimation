@@ -31,6 +31,7 @@ public class TorqueJoint : MonoBehaviour
     
     private Vector3 m_TorqueRotation;
 
+    
     public float TorqueJointValue
     {
         get => m_TorqueJoint;
@@ -41,6 +42,12 @@ public class TorqueJoint : MonoBehaviour
     {
         get => m_RigidBody;
         set => m_RigidBody = value;
+    }
+
+    private void Start()
+    {
+        if (m_RigidBody == null)
+            m_RigidBody = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -66,8 +73,8 @@ public class TorqueJoint : MonoBehaviour
 
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse0))    
-            m_RigidBody.AddForce(new Vector3(tHorizontal, 1, tVertical) * Mathf.Abs(m_DownForce));
+        if(Input.GetKeyDown(KeyCode.Space))    
+            m_RigidBody.AddForce(new Vector3(tHorizontal * transform.forward.x, 1, tVertical * transform.forward.z) * Mathf.Abs(m_DownForce));
         if(m_Normal)
             m_RigidBody.AddForce(Vector3.down * m_NormalValue);
 
